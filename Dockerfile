@@ -1,4 +1,4 @@
-FROM alpine-java:8_server-jre_unlimited
+FROM anapsix/alpine-java:8_server-jre_unlimited
 
 MAINTAINER fjy8018@gmail.com
 
