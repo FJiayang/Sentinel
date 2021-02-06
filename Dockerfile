@@ -1,4 +1,4 @@
-FROM harbor.fjy8018.top:8883/library/alpine-java:8_server-jre_unlimited
+FROM alpine-java:8_server-jre_unlimited
 
 MAINTAINER fjy8018@gmail.com
 
