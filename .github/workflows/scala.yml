@@ -21,10 +21,15 @@ jobs:
       - name: Publish package
         run: mvn --batch-mode clean package -Dmaven.test.skip=true
 
+      # 设置 Docker Buildx
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v1
+
       - name: Push to Docker Hub
-        uses: docker/build-push-action@v1
+        uses: docker/build-push-action@v2  # 使用 v2 版本以支持多平台构建
         with:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
           repository: fjy8018/sentinel
           tag_with_ref: true
+          platforms: linux/amd64,linux/arm64
