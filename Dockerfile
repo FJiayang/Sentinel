@@ -1,4 +1,4 @@
-FROM anapsix/alpine-java:8_server-jre_unlimited
+FROM openjdk:17-slim
 
 MAINTAINER fjy8018@gmail.com
 
