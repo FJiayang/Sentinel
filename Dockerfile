@@ -3,7 +3,7 @@ FROM anapsix/alpine-java:8_server-jre_unlimited
 MAINTAINER fjy8018@gmail.com
 
 ENV PARAM ""
-ENV VERSION 1.8.0
+ENV VERSION 1.8.8
 
 RUN mkdir -p /sentinel
 
