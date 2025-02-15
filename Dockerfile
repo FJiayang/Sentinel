@@ -1,14 +1,16 @@
 FROM openjdk:17-slim
 
-MAINTAINER fjy8018@gmail.com
+# 使用LABEL替换MAINTAINER
+LABEL maintainer="fjy8018@gmail.com"
 
-ENV PARAM ""
-ENV VERSION 1.8.8
+# 更新环境变量格式
+ENV PARAM="" \
+    VERSION=1.8.8
 
 RUN mkdir -p /sentinel
-
+RUN ls
 WORKDIR /sentinel
-
+RUN ls
 ADD ./sentinel-dashboard/target/sentinel-dashboard.jar ./app-${VERSION}.jar
 
 # 设置时区，默认为UTC
