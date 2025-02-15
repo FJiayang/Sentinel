@@ -2,13 +2,14 @@ name: Publish Docker image
 
 on:
   push:
-    branches: [ 1.8.* ]
+    branches:
+      - '1.8.*'
   pull_request:
-    branches: [ 1.8.* ]
+    branches:
+      - '1.8.*'
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
 
     steps:
@@ -16,20 +17,22 @@ jobs:
         with:
           fetch-depth: 0
 
+      # 如果不需要设置Maven Central Repository，可移除以下步骤
       - name: Set up Maven Central Repository
         uses: actions/setup-java@v4
         with:
-          java-version: 17
+          java-version: '17'
+          distribution: 'temurin'
 
+      # 确保这里确实需要跳过测试并进行package，否则可根据需求修改命令
       - name: Publish package
         run: mvn --batch-mode clean package -Dmaven.test.skip=true
 
-      # 设置 Docker Buildx
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v1
 
       - name: Push to Docker Hub
-        uses: docker/build-push-action@v2  # 使用 v2 版本以支持多平台构建
+        uses: docker/build-push-action@v2
         with:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
