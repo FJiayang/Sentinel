@@ -8,10 +8,10 @@ ENV PARAM="" \
     VERSION=1.8.8
 
 RUN mkdir -p /sentinel
-RUN ls
+
 WORKDIR /sentinel
-RUN ls
-ADD ./sentinel-dashboard/target/sentinel-dashboard.jar ./app-${VERSION}.jar
+
+ADD ./sentinel-dashboard.jar ./app-${VERSION}.jar
 
 # 设置时区，默认为UTC
 RUN ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime

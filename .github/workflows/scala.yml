@@ -28,6 +28,9 @@ jobs:
       - name: Publish package
         run: mvn --batch-mode clean package -Dmaven.test.skip=true
 
+      - name: Copy JAR to build context
+        run: cp /home/runner/work/Sentinel/Sentinel/sentinel-dashboard/target/sentinel-dashboard.jar ./sentinel-dashboard.jar
+
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v1
 
