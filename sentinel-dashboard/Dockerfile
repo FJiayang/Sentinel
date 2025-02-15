@@ -1,9 +1,7 @@
 FROM amd64/buildpack-deps:buster-curl as installer
 
-ARG SENTINEL_VERSION=1.8.8
-RUN echo "Downloading Sentinel Dashboard version ${SENTINEL_VERSION}"
 RUN set -x \
-    && curl -SLv --retry 5 --output /home/sentinel-dashboard.jar https://github.com/alibaba/Sentinel/releases/download/${SENTINEL_VERSION}/sentinel-dashboard-${SENTINEL_VERSION}.jar
+    && curl -SLv --retry 5 --output /home/sentinel-dashboard.jar https://github.com/alibaba/Sentinel/releases/download/1.8.8/sentinel-dashboard-1.8.8.jar
 FROM openjdk:17-slim
 
 # copy sentinel jar
