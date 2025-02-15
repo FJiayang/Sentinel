@@ -1,20 +1,18 @@
-FROM amd64/buildpack-deps:buster-curl as installer
+FROM openjdk:17-slim
 
-ARG SENTINEL_VERSION=1.8.8
+MAINTAINER fjy8018@gmail.com
 
-RUN set -x \
-    && curl -SL --output /home/sentinel-dashboard.jar https://github.com/alibaba/Sentinel/releases/download/${SENTINEL_VERSION}/sentinel-dashboard-${SENTINEL_VERSION}.jar
+ENV PARAM ""
+ENV VERSION 1.8.8
 
-FROM openjdk:8-jre-slim
+RUN mkdir -p /sentinel
 
-# copy sentinel jar
-COPY --from=installer ["/home/sentinel-dashboard.jar", "/home/sentinel-dashboard.jar"]
+WORKDIR /sentinel
 
-ENV JAVA_OPTS '-Dserver.port=8080 -Dcsp.sentinel.dashboard.server=localhost:8080'
+ADD ./sentinel-dashboard/target/sentinel-dashboard.jar ./app-${VERSION}.jar
 
-RUN chmod -R +x /home/sentinel-dashboard.jar
+# 设置时区，默认为UTC
+RUN ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
+RUN echo 'Asia/Shanghai' > /etc/timezone
 
-EXPOSE 8080
-
-CMD java ${JAVA_OPTS} -jar /home/sentinel-dashboard.jar
-
+ENTRYPOINT ["java", "${PARAM}", "-jar", "app-${VERSION}.jar"]
